@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HealthApi.Data;
+using HealthApI.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -25,8 +28,13 @@ namespace HealthApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<HealthContext>(options => 
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+          
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                
         }
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -42,6 +50,8 @@ namespace HealthApi
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            SeedData.Initialize(app);
         }
     }
 }

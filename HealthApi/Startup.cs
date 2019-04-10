@@ -32,7 +32,15 @@ namespace HealthApi
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
           
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+
+            services.AddCors(o => o.AddPolicy("HealthPolicy", builder =>
+            {
+               builder  .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
                 
+            }));
         }
         
 

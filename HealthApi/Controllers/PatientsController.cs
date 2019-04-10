@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HealthApi.Data;
 using HealthApi.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace HealthApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("HealthPolicy")]
     public class PatientsController : ControllerBase
     {
         private readonly HealthContext _context;

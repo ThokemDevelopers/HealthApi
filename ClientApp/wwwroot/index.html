@@ -3,8 +3,27 @@
 <head>
     <meta charset="utf-8" />
     <title> Client App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 <body>
-    <h1> Client App</hi>
+    <h1> Client App</h1>
+    <h3>Cors Request</h3>
+    <button id="btnGetPatients">Get Patients</button>
+    <pre id="preOutput"></pre>
+    <script>
+        $(function () {
+            var getPatients = function () {
+                var url = "https://localhost:44320/api/patients";
+                $.get(url).always(showResponse);
+                return false;
+            };
+
+            var showResponse = function (object) {
+                $("#preOutput").text(JSON.stringify(object, null, 4));
+            };
+
+            $("#btnGetPatients").click(getPatients);
+        });
+    </script>
 </body>
 </html>
